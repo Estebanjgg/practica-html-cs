@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício CSS - Layout Avançado | Receita de Brigadeiro</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Variáveis CSS */
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #F0E68C;
+            --background-color: #f9f7f4;
+            --text-color: #333;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+        }
+
+        /* Layout principal com Grid */
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, var(--background-color) 0%, #fff8dc 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: grid;
+            grid-template-areas: 
+                "header"
+                "nav"
+                "main"
+                "footer";
+            grid-template-rows: auto auto 1fr auto;
+        }
+
+        /* Header com Flexbox */
+        .header {
+            grid-area: header;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Navegação com Flexbox */
+        .navigation {
+            grid-area: nav;
+            background-color: var(--primary-color);
+            padding: 1rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-container a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: 2px solid transparent;
+        }
+
+        .nav-container a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Container principal */
+        .main-container {
+            grid-area: main;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+        }
+
+        /* Conteúdo principal */
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Cards com Flexbox */
+        .card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .card h3 {
+            color: var(--secondary-color);
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.3rem;
+        }
+
+        /* Listas estilizadas */
+        .ingredients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .ingredient-category {
+            background: linear-gradient(135deg, #fff8dc, #f0e68c);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .ingredient-category h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+
+        ul li::marker {
+            color: var(--secondary-color);
+        }
+
+        ol li::marker {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* Steps com numeração customizada */
+        .steps-container {
+            counter-reset: step-counter;
+        }
+
+        .step {
+            counter-increment: step-counter;
+            background: linear-gradient(90deg, #fff, #f9f7f4);
+            margin: 1rem 0;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--secondary-color);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            background: linear-gradient(90deg, #f9f7f4, #fff8dc);
+            transform: translateX(5px);
+        }
+
+        .step::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--secondary-color);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Sidebar cards */
+        .info-card {
+            background: linear-gradient(135deg, var(--accent-color), #fff8dc);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(139, 69, 19, 0.2);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        .footer {
+            grid-area: footer;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .ingredients-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .step {
+                padding: 1rem;
+                margin-left: 20px;
+            }
+        }
+
+        /* Animações */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .card:nth-child(2) { animation-delay: 0.1s; }
+        .card:nth-child(3) { animation-delay: 0.2s; }
+        .card:nth-child(4) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>🍫 Receita de Brigadeiro Gourmet</h1>
+        <p class="subtitle">Exercício de CSS - Layout Avançado com Grid e Flexbox</p>
+    </header>
+
+    <!-- Navegação -->
+    <nav class="navigation">
+        <div class="nav-container">
+            <a href="#ingredientes">📋 Ingredientes</a>
+            <a href="#preparo">👨‍🍳 Preparo</a>
+            <a href="#dicas">💡 Dicas</a>
+            <a href="#variacoes">🎨 Variações</a>
+        </div>
+    </nav>
+
+    <!-- Container principal -->
+    <div class="main-container">
+        <!-- Conteúdo principal -->
+        <main class="content">
+            <!-- Seção de ingredientes -->
+            <section id="ingredientes" class="card">
+                <h2>📋 Ingredientes Necessários</h2>
+                <div class="ingredients-grid">
+                    <div class="ingredient-category">
+                        <h4>🥛 Ingredientes Básicos</h4>
+                        <ul>
+                            <li>1 lata de leite condensado (395g)</li>
+                            <li>2 colheres de sopa de chocolate em pó</li>
+                            <li>1 colher de sopa de manteiga</li>
+                            <li>Chocolate granulado para decorar</li>
+                        </ul>
+                    </div>
+                    <div class="ingredient-category">
+                        <h4>✨ Ingredientes Opcionais</h4>
+                        <ul>
+                            <li>1 pitada de sal</li>
+                            <li>1 colher de chá de essência de baunilha</li>
+                            <li>Coco ralado (para variação)</li>
+                            <li>Leite em pó (para cremosidade)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção de preparo -->
+            <section id="preparo" class="card">
+                <h2>👨‍🍳 Modo de Preparo</h2>
+                <div class="steps-container">
+                    <div class="step">
+                        Em uma panela de fundo grosso, misture o leite condensado, o chocolate em pó e a manteiga
+                    </div>
+                    <div class="step">
+                        Leve ao fogo médio, mexendo sempre com uma colher de pau
+                    </div>
+                    <div class="step">
+                        Continue mexendo até que a mistura comece a desgrudar do fundo da panela (10-15 minutos)
+                    </div>
+                    <div class="step">
+                        Retire do fogo e deixe esfriar completamente
+                    </div>
+                    <div class="step">
+                        Com as mãos untadas com manteiga, faça bolinhas com a massa
+                    </div>
+                    <div class="step">
+                        Passe cada bolinha no chocolate granulado
+                    </div>
+                    <div class="step">
+                        Coloque em forminhas de papel e sirva
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção de dicas -->
+            <section id="dicas" class="card">
+                <h2>💡 Dicas para o Brigadeiro Perfeito</h2>
+                <h3>🎯 Pontos Importantes:</h3>
+                <ul>
+                    <li><strong>Ponto certo:</strong> O brigadeiro está pronto quando você consegue ver o fundo da panela ao mexer</li>
+                    <li><strong>Temperatura:</strong> Sempre use fogo médio para evitar queimar</li>
+                    <li><strong>Mexer sempre:</strong> Não pare de mexer para não empelotar</li>
+                    <li><strong>Resfriamento:</strong> Deixe esfriar bem antes de enrolar</li>
+                    <li><strong>Conservação:</strong> Pode ser guardado na geladeira por até 5 dias</li>
+                </ul>
+            </section>
+
+            <!-- Seção de variações -->
+            <section id="variacoes" class="card">
+                <h2>🎨 Variações Deliciosas</h2>
+                <div class="ingredients-grid">
+                    <div class="ingredient-category">
+                        <h4>🍓 Sabores Diferentes</h4>
+                        <ul>
+                            <li><strong>Brigadeiro Branco:</strong> Substitua o chocolate por leite em pó</li>
+                            <li><strong>Brigadeiro de Coco:</strong> Adicione coco ralado à mistura</li>
+                            <li><strong>Brigadeiro de Café:</strong> Adicione café solúvel</li>
+                            <li><strong>Brigadeiro de Morango:</strong> Use gelatina em pó</li>
+                        </ul>
+                    </div>
+                    <div class="ingredient-category">
+                        <h4>🎭 Coberturas Criativas</h4>
+                        <ul>
+                            <li>Coco ralado</li>
+                            <li>Castanhas picadas</li>
+                            <li>Granulado colorido</li>
+                            <li>Cacau em pó</li>
+                            <li>Amendoim triturado</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="info-card">
+                <h3>📊 Informações da Receita</h3>
+                <div class="info-item">
+                    <span class="info-label">⏱️ Tempo:</span>
+                    <span>30 min</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">🍽️ Rendimento:</span>
+                    <span>25 unidades</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">👥 Dificuldade:</span>
+                    <span>Fácil</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">🔥 Calorias:</span>
+                    <span>~80 por unidade</span>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>🏆 Dica do Chef</h3>
+                <p>Para um brigadeiro ainda mais cremoso, adicione uma colher de sopa de creme de leite no final do cozimento!</p>
+            </div>
+
+            <div class="info-card">
+                <h3>📚 Conceitos CSS Aplicados</h3>
+                <ul style="text-align: left; font-size: 0.9rem;">
+                    <li>CSS Grid Layout</li>
+                    <li>Flexbox</li>
+                    <li>Variáveis CSS</li>
+                    <li>Media Queries</li>
+                    <li>Animações CSS</li>
+                    <li>Pseudo-elementos</li>
+                    <li>Gradientes</li>
+                    <li>Box Shadow</li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <h3>🎉 Bom Apetite!</h3>
+        <p>Exercício de CSS - Layout Avançado | Receita tradicional brasileira</p>
+        <p style="margin-top: 1rem; opacity: 0.8;">Desenvolvido com Grid, Flexbox e muito carinho! 💝</p>
+    </footer>
+</body>
+</html>
