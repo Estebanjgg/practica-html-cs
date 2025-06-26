@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Portfólio - Desenvolvedor Front-End</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin-bottom: 1rem;
+            margin-left: auto;
+            margin-right: auto;
+            object-fit: cover;
+            display: block;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        
+        .intro {
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+        
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            padding: 0 2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 4rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .skill-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        /* Studies Section */
+        .studies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .study-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .study-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .study-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .study-card h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .study-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+        }
+        
+        .project-content {
+            padding: 2rem;
+        }
+        
+        .project-card h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .project-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .contact-details h4 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .contact-details p {
+            color: #666;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-link:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <img src="imagen.jpg" alt="Esteban José González Gómez" class="profile-img">
+            <h1>Esteban José González Gómez</h1>
+            <p class="subtitle">Desenvolvedor Full-Stack</p>
+            <p class="intro">👋 Hola, soy un Desarrollador Full-Stack. Apasionado por la innovación tecnológica con más de 3 años de experiência na criação de aplicações web e plataformas escaláveis.</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#estudos">Estudos</a></li>
+                <li><a href="#portfolio">Portfólio</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <section id="sobre" class="container">
+        <h2 class="section-title">Sobre Mim</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Olá! Eu sou Esteban José González Gómez, um desenvolvedor full-stack com mais de 3 anos de experiência na criação de aplicações web e plataformas escaláveis. Eu me especializo no uso de tecnologias como React, Next.js, Python e bancos de dados como MongoDB e PostgreSQL.</p>
+                
+                <p>Sou apaixonado por inovação tecnológica e sempre em busca de novos desafios que me permitam crescer profissional e pessoalmente. Atualmente trabalho como Engenheiro de Software na Neon, desenvolvendo aplicações full-stack e implementando automação de processos.</p>
+                
+                <div class="skills">
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">Next.js</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">TypeScript</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">MongoDB</span>
+                    <span class="skill-tag">PostgreSQL</span>
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">AWS</span>
+                    <span class="skill-tag">Django</span>
+                </div>
+            </div>
+            
+            <div class="about-stats">
+                <div class="stat-card">
+                    <div class="stat-number">3+</div>
+                    <div class="stat-label">Anos de Experiência</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">54</div>
+                    <div class="stat-label">Repositórios GitHub</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Tecnologias</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Dedicação</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Studies Section -->
+    <section id="estudos" class="container">
+        <h2 class="section-title">Estudos e Objetivos</h2>
+        <div class="studies-grid">
+            <div class="study-card">
+                <div class="study-icon">🎓</div>
+                <h3>Formação Acadêmica</h3>
+                <p>Cursando Engenharia de Software na Cruzeiro do Sul Virtual (desde maio de 2024). Formação especializada em desenvolvimento de software, design de sistemas e tecnologias modernas. Graduado em Administração Tributária pelo IUTIRLA (2012-2015).</p>
+            </div>
+            
+            <div class="study-card">
+                <div class="study-icon">💻</div>
+                <h3>Desenvolvimento Contínuo</h3>
+                <p>Especialização contínua em tecnologias full-stack: React, Next.js, Python, Django, FastAPI, PostgreSQL, MongoDB. Experiência com DevOps (Docker, Kubernetes), Cloud (AWS, Google Cloud) e IA/ML (TensorFlow, PyTorch).</p>
+            </div>
+            
+            <div class="study-card">
+                <div class="study-icon">🎯</div>
+                <h3>Experiência Profissional</h3>
+                <p>Engenheiro de Software na Neon (fev. 2022 - atualidade). Desenvolvimento full-stack, automação de processos, testes automatizados e implementação de CI/CD. Experiência anterior em logística na Boardriders (2020-2022).</p>
+            </div>
+            
+            <div class="study-card">
+                <div class="study-icon">🚀</div>
+                <h3>Competências Linguísticas</h3>
+                <p>Espanhol (nativo - 100%), Português (profissional completo - 85%), Inglês (básico - 40%). Competências que me permitem comunicar efetivamente em diferentes contextos internacionais.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="container">
+        <h2 class="section-title">Meus Trabalhos</h2>
+        <div class="portfolio-grid">
+            <div class="project-card">
+                <div class="project-image">🏦</div>
+                <div class="project-content">
+                    <h3>Plataforma Financeira Neon</h3>
+                    <p>Aplicações web escaláveis para serviços financeiros desenvolvidas com React, Next.js e Python. Implementação de automação de processos e testes automatizados com CI/CD.</p>
+                    <div class="project-links">
+                        <span class="btn btn-primary">Ver GitHub</span>
+                        <span class="btn btn-secondary">Detalhes</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">🤖</div>
+                <div class="project-content">
+                    <h3>Sistema de IA/ML</h3>
+                    <p>Implementação de soluções de Machine Learning com TensorFlow e PyTorch. Processamento de dados com Python, integração com APIs e deploy em cloud (AWS/Google Cloud).</p>
+                    <div class="project-links">
+                        <span class="btn btn-primary">Ver GitHub</span>
+                        <span class="btn btn-secondary">Código</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">🐳</div>
+                <div class="project-content">
+                    <h3>Infraestrutura DevOps</h3>
+                    <p>Implementação de containers Docker, orquestração com Kubernetes e pipelines CI/CD com Jenkins. Automação de deploy e monitoramento de aplicações em produção.</p>
+                    <div class="project-links">
+                        <span class="btn btn-primary">Ver GitHub</span>
+                        <span class="btn btn-secondary">Código</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">📊</div>
+                <div class="project-content">
+                    <h3>API REST com Django/FastAPI</h3>
+                    <p>Desenvolvimento de APIs robustas com Python, Django e FastAPI. Integração com bancos de dados PostgreSQL e MongoDB, implementação de GraphQL e testes automatizados.</p>
+                    <div class="project-links">
+                        <span class="btn btn-primary">Ver GitHub</span>
+                        <span class="btn btn-secondary">Código</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contato" class="container">
+        <h2 class="section-title">Entre em Contato</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-details">
+                        <h4>Email</h4>
+                        <p>esteban.gonzalez@email.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">🐙</div>
+                    <div class="contact-details">
+                        <h4>GitHub</h4>
+                        <p>https://github.com/Estebanjgg (54 repositórios)</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <h4>Localização</h4>
+                        <p>São Paulo, SP - Brasil (Remoto)</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">💼</div>
+                    <div class="contact-details">
+                        <h4>Empresa Atual</h4>
+                        <p>Neon - Engenheiro de Software</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="assunto">Assunto</label>
+                        <input type="text" id="assunto" name="assunto" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mensagem">Mensagem</label>
+                        <textarea id="mensagem" name="mensagem" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensagem</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <span class="social-link">📧</span>
+                <span class="social-link">💼</span>
+                <span class="social-link">🐙</span>
+                <span class="social-link">📱</span>
+            </div>
+            <p>&copy; 2024 Esteban José González Gómez. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
